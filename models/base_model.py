@@ -19,6 +19,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+
         else:
             if 'updated_at' in kwargs.keys():
                 kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
@@ -36,7 +37,9 @@ class BaseModel:
     def __str__(self):
         """Returns a string representation of the instance"""
         cls = (str(type(self)).split('.')[-1]).split('\'')[0]
-        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
+        if '_sa_instance_state' in self.__dict__:
+            del self.__dict__['_sa_instance_state']
+        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__) #NEW OJO
 
     def save(self):
         """Updates updated_at with current time when instance is changed"""
@@ -56,7 +59,7 @@ class BaseModel:
         if "_sa_instance_state" in dictionary.keys(): #NEW
             del dictionary["_sa_instance_state"] #NEW
         return dictionary
-    
+
     def delete(self): #NEW
         from models import storage #NEW
         storage.delete(self) #NEW
