@@ -6,12 +6,16 @@ from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
+aux_time = datetime.strptime
+
 
 class BaseModel:
     """A base class for all hbnb models"""
-    id = Column(String(60), nullable=False, primary_key=True) #NEW
-    created_at = Column(DateTime, default=datetime.utcnow(), nullable=False) #NEW
-    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow()) #NEW
+
+    id = Column(String(60), nullable=False, primary_key=True)
+    created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
         if not kwargs:
@@ -22,24 +26,22 @@ class BaseModel:
 
         else:
             if 'updated_at' in kwargs.keys():
-                kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
-                                                        '%Y-%m-%dT%H:%M:%S.%f')
+                kwargs['updated_at'] = aux_time(kwargs['updated_at'],
+                                                '%Y-%m-%dT%H:%M:%S.%f')
             if 'created_at' in kwargs.keys():
-                kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
-                                                        '%Y-%m-%dT%H:%M:%S.%f')
+                kwargs['created_at'] = aux_time(kwargs['created_at'],
+                                                '%Y-%m-%dT%H:%M:%S.%f')
             if "id" not in kwargs.keys():
                 self.id = str(uuid.uuid4())
             if '__class__' in kwargs.keys():
                 del kwargs['__class__']
-            for key, value in kwargs.items():
-                setattr(self, key, value)
+            self.__dict__.update(kwargs)
 
     def __str__(self):
         """Returns a string representation of the instance"""
         cls = (str(type(self)).split('.')[-1]).split('\'')[0]
-        if '_sa_instance_state' in self.__dict__:
-            del self.__dict__['_sa_instance_state']
-        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__) #NEW OJO
+
+        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
 
     def save(self):
         """Updates updated_at with current time when instance is changed"""
@@ -56,11 +58,11 @@ class BaseModel:
                           (str(type(self)).split('.')[-1]).split('\'')[0]})
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
-        if "_sa_instance_state" in dictionary.keys(): #NEW
-            del dictionary["_sa_instance_state"] #NEW
+        if "_sa_instance_state" in dictionary.keys():
+            del dictionary["_sa_instance_state"]
         return dictionary
 
-    def delete(self): #NEW
-        from models import storage #NEW
-        storage.delete(self) #NEW
-
+    def delete(self):
+        """Deletes an instance from the storage engine"""
+        from models import storage
+        storage.delete(self)
