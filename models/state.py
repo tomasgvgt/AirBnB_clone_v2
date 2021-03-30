@@ -7,17 +7,17 @@ from sqlalchemy.orm import relationship
 
 class State(BaseModel, Base):
     """ State class """
-    __tablename__ = 'states' #NEW
-    name = Column(String(128), nullable=False) #NEW
-    cities = relationship("City", cascade="all, delete", backref='state') #NEW
+    __tablename__ = 'states'
+    name = Column(String(128), nullable=False)
+    cities = relationship("City", cascade="all, delete", backref='state')
 
-    @property #NEW
-    def cities(self): #NEW
-        from models import storage #NEW
-        from models.city import City #NEW
-        temp = [] #NEW
-        dictio = storage.all(City) #NEW
-        for value in dictio.values(): #NEW
-            if value.state_id == self.id: #NEW
-                temp.append(value) #NEW
-        return temp #NEW
+    @property
+    def cities(self):
+        from models import storage
+        from models.city import City
+        temp = []
+        dictio = storage.all(City)
+        for value in dictio.values():
+            if value.state_id == self.id:
+                temp.append(value)
+        return temp
