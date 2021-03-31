@@ -141,3 +141,4 @@ Usage: <class_name>.update(<_id>, <dictionary>)
 ```
 <br>Automatic commit 1
 Automatic commit 2
+Automatic commit 3
