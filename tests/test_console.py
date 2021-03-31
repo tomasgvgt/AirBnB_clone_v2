@@ -12,8 +12,5 @@ class ConsoleTests(unittest.TestCase):
         """Test for module docstring"""
         self.assertTrue(2 > 1)
 
-
-
-
 if __name__ == "__main__":
     unittest.main()
