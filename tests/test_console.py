@@ -1,8 +1,6 @@
 #!/usr/bin/python3
-"""unitary test for console Class"""
-
+"""This module has tests for console class"""
 import unittest
-import pep8
 
 
 class ConsoleTests(unittest.TestCase):
