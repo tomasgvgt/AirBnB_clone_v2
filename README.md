@@ -139,18 +139,4 @@ Usage: <class_name>.update(<_id>, <dictionary>)
 (hbnb) User.all()
 (hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'name': 'Fred the Frog', 'age': 9, 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
 ```
-<br>Automatic commit 1
-Automatic commit 2
-Automatic commit 3
-Automatic commit 4
-Automatic commit 1
-Automatic commit 1
-Automatic commit 2
-Automatic commit 3
-Automatic commit 4
-Automatic commit 5
-Automatic commit 6
-Automatic commit 7
-Automatic commit 8
-Automatic commit 9
-Automatic commit 10
+<br>
