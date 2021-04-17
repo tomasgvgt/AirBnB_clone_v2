@@ -54,5 +54,5 @@ def deploy():
     path_s = do_pack()
     if path_s is None:
         return False
-    value = do_deploy(path_s)
+    value = do_deploy(archive_path)
     return value
