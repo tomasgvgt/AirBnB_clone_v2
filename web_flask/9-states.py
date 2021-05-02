@@ -23,7 +23,6 @@ Routes:
                 LI tag: description of one City: <city.id>: <B><city.name></B>
         Otherwise:
             H1 tag: “Not found!”
-
 """
 from flask import Flask, render_template
 from models import storage
@@ -42,7 +41,7 @@ def states_list():
 
 
 @app.route('/states/<id>', strict_slashes=False)
-def cities_by_state():
+def cities_by_state(id):
     """ display html page with cities for that state"""
     states = storage.all(State).values()
     states = sorted(states, key=lambda s: s.name)
