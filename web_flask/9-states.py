@@ -46,7 +46,7 @@ def cities_by_state(id):
     states = storage.all(State).values()
     states = sorted(states, key=lambda s: s.name)
     for state in states:
-        if state.id = id:
+        if state.id == id:
             return render_template('9-states.html', state=state)
     return render_template('9-states.html', state=None)
 
