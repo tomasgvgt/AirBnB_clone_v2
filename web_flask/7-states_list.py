@@ -21,7 +21,7 @@ from models import storage
 from models.state import State
 
 
-app = flask(__name__)
+app = Flask(__name__)
 
 
 @app.route('/states_list', strict_slashes=False)
